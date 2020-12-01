@@ -33,13 +33,31 @@ user_selected_data = data[(data["date"] >= user_year + '-01-01 00:00:00')
 all_tweets = ' '.join(user_selected_data["text"])
 # print('all_tweets: ', type(all_tweets))
 
-# CLEAN UP: delete everything such as "http..." and "(cont)"
-
-# Might have to concatenate the text and then find the text in the dataframe to be able to see more information about the tweet, such as date, device and retweets.
-# Like This:
-# df[(df == n_input).any(1)].stack()[lambda x: x != n_input].unique()
-# {df is our dataframe, AKA user_selected_input.}
 
 
-# print(summarize(all_tweets, ratio=0.2))
-print(summarize(all_tweets, words=100))
+tweet_split = all_tweets.split('""')
+
+
+formatTweet = ''
+# @@TODO: CLEAN UP: delete everything such as "http..." and "(cont)"
+# All unique tweets from Trump are quoted, while retweets start with RT: , and links [only] starts with http(s)://....
+for i in tweet_split:
+    if( 'RT' not in i or 'http' not in i or '@' not in i):
+        formatTweet = formatTweet + i
+
+
+formatTweet = formatTweet.replace('@', '')
+formatTweet = formatTweet.replace('(cont)', '')
+formatTweet = formatTweet.replace('RT', '')
+formatTweet = formatTweet.strip('http')
+formatTweet = formatTweet.strip('???')
+
+#Remove http from string
+import re
+formatTweet = re.sub(r'http\S+', '', formatTweet)
+
+
+
+print(summarize(formatTweet, words=100))
+#print(sumis)
+#print(sumis.replace('@', ''))
