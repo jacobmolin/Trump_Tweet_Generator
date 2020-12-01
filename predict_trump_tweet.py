@@ -1,0 +1,1 @@
+# Learn from a part of the data set (or a specific year) and predict a Trump tweet
