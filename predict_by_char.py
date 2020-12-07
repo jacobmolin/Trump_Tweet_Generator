@@ -14,14 +14,14 @@ from keras.layers import LSTM
 from keras.utils import np_utils
 
 # ---- For running on GPU ----
-# # import tensorflow as tf
-# config = tf.compat.v1.ConfigProto(gpu_options=tf.compat.v1.GPUOptions(
-#     per_process_gpu_memory_fraction=0.8)
-#     # device_count = {'GPU': 1}
-# )
-# config.gpu_options.allow_growth = True
-# session = tf.compat.v1.Session(config=config)
-# tf.compat.v1.keras.backend.set_session(session)
+import tensorflow as tf
+config = tf.compat.v1.ConfigProto(gpu_options=tf.compat.v1.GPUOptions(
+    per_process_gpu_memory_fraction=0.8)
+    # device_count = {'GPU': 1}
+)
+config.gpu_options.allow_growth = True
+session = tf.compat.v1.Session(config=config)
+tf.compat.v1.keras.backend.set_session(session)
 # ----------------------------
 
 # Load data set
@@ -29,7 +29,7 @@ data = pd.read_csv('data/tweets_11-06-2020.csv')
 
 user_year = '2016'
 df = data[(data["date"] >= user_year + '-01-01 00:00:00') &
-          (data["date"] <= user_year + '-12-31 23:59:59')]
+          (data["date"] <= user_year + '-01-31 23:59:59')]
 
 print('length df:', len(df))
 
