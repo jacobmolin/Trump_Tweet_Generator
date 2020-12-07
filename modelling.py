@@ -11,8 +11,8 @@ def modelling(X_modified, Y_modified, run_model_fit):
     layers = 3
     units = 700
     drop = 0.2
-    batch_size = 100
-    epochs = 20
+    batch_size = 250
+    epochs = 10
 
     model.add(LSTM(units, input_shape=(
         X_modified.shape[1], X_modified.shape[2]), return_sequences=True))
