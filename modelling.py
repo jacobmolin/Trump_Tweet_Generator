@@ -17,9 +17,9 @@ def modelling(model, X_modified, Y_modified):
 
     model.compile(loss='categorical_crossentropy', optimizer='adam')
 
-    model.fit(X_modified, Y_modified, epochs=3, batch_size=100)
+    # model.fit(X_modified, Y_modified, epochs=20, batch_size=250)
 
-    model.save_weights(
-        'models/text_generator_gigant_700_0.2_700_0.2_700_0.2_20.h5')
+    # model.save_weights(
+    #     'models/text_generator_gigant_700_0.2_700_0.2_700_0.2_201.h5')
 
     return model
