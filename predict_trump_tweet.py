@@ -15,7 +15,7 @@ data = pd.read_csv('data/tweets_11-06-2020.csv')
 
 user_year = '2016'
 df = data[(data["date"] >= user_year + '-01-01 00:00:00') &
-          (data["date"] <= user_year + '-12-31 23:59:59')]
+          (data["date"] <= user_year + '-02-25 23:59:59')]
 
 # print('len(df):')
 print('length df:', len(df))
@@ -44,7 +44,7 @@ text_list = text.split()
 length = len(text_list)
 # print(text.split())
 print('length text:', length)
-seq_length = 20
+seq_length = 50
 
 
 for i in range(0, length-seq_length, 1):
@@ -64,12 +64,22 @@ Y_modified = np_utils.to_categorical(Y_target)
 
 # print('X_modified:', X_modified)
 # print('Y_modified:', np.amax(Y_modified[0]))
+import tensorflow as tf
+config = tf.compat.v1.ConfigProto(gpu_options = 
+                         tf.compat.v1.GPUOptions(per_process_gpu_memory_fraction=0.8)
+# device_count = {'GPU': 1}
+)
+config.gpu_options.allow_growth = True
+session = tf.compat.v1.Session(config=config)
+tf.compat.v1.keras.backend.set_session(session)
+
+
 
 model = Sequential()
 model = modelling(model, X_modified, Y_modified)
 
 model.load_weights(
-    'models/text_generator_gigant_700_0.2_700_0.2_700_0.2_20.h5')
+    'models/text_generator_gigant_700_0.2_700_0.2_700_0.2_201.h5')
 
 
 string_mapped = X_train[seq_length-1]
