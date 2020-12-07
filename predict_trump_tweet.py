@@ -43,7 +43,7 @@ text_list = text.split()
 length = len(text_list)
 # print(text.split())
 print('length text:', length)
-seq_length = 100
+seq_length = 10
 
 
 for i in range(0, length-seq_length, 1):
@@ -64,8 +64,18 @@ Y_modified = np_utils.to_categorical(Y_target)
 # print('X_modified:', X_modified)
 # print('Y_modified:', np.amax(Y_modified[0]))
 
+import tensorflow as tf
+config = tf.compat.v1.ConfigProto(gpu_options = 
+                         tf.compat.v1.GPUOptions(per_process_gpu_memory_fraction=0.8)
+# device_count = {'GPU': 1}
+)
+config.gpu_options.allow_growth = True
+session = tf.compat.v1.Session(config=config)
+tf.compat.v1.keras.backend.set_session(session)
+
 
 model = Sequential()
+
 model.add(LSTM(400, input_shape=(
     X_modified.shape[1], X_modified.shape[2]), return_sequences=True))
 model.add(Dropout(0.2))
