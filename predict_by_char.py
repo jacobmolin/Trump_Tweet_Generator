@@ -22,8 +22,9 @@ from keras.utils import np_utils
 # config.gpu_options.allow_growth = True
 # session = tf.compat.v1.Session(config=config)
 # tf.compat.v1.keras.backend.set_session(session)
-# ----
+# ----------------------------
 
+# Load data set
 data = pd.read_csv('data/tweets_11-06-2020.csv')
 
 user_year = '2016'

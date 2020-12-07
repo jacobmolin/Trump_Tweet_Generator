@@ -34,7 +34,7 @@ def modelling(X_modified, Y_modified, run_model_fit):
             filename += f'_{units}_{drop}'
         filename += f'_e{epochs}_bs{batch_size}.h5'
 
-        # model.fit(X_modified, Y_modified, epochs=epochs, batch_size=batch_size)
+        model.fit(X_modified, Y_modified, epochs=epochs, batch_size=batch_size)
         print('filename:', filename)
         model.save_weights(filename)
 
