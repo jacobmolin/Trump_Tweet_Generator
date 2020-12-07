@@ -1,12 +1,13 @@
 # Learn from a part of the data set (or a specific year) and predict a Trump tweet
 
 from cleanup import cleanup
+from modelling import modelling
 import numpy as np
 import pandas as pd
 from keras.models import Sequential
-from keras.layers import Dense
-from keras.layers import Dropout
-from keras.layers import LSTM
+# from keras.layers import Dense
+# from keras.layers import Dropout
+# from keras.layers import LSTM
 from keras.utils import np_utils
 
 data = pd.read_csv('data/tweets_11-06-2020.csv')
@@ -43,7 +44,7 @@ text_list = text.split()
 length = len(text_list)
 # print(text.split())
 print('length text:', length)
-seq_length = 100
+seq_length = 20
 
 
 for i in range(0, length-seq_length, 1):
@@ -64,44 +65,31 @@ Y_modified = np_utils.to_categorical(Y_target)
 # print('X_modified:', X_modified)
 # print('Y_modified:', np.amax(Y_modified[0]))
 
-
 model = Sequential()
-model.add(LSTM(400, input_shape=(
-    X_modified.shape[1], X_modified.shape[2]), return_sequences=True))
-model.add(Dropout(0.2))
-model.add(LSTM(400, return_sequences=True))
-model.add(Dropout(0.2))
-model.add(LSTM(400))
-model.add(Dropout(0.2))
-model.add(Dense(Y_modified.shape[1], activation='softmax'))
+model = modelling(model, X_modified, Y_modified)
 
-model.compile(loss='categorical_crossentropy', optimizer='adam')
-
-model.fit(X_modified, Y_modified, epochs=1, batch_size=50)
-
-model.save_weights('models/text_generator_400_0.2_400_0.2_400_0.2_100_1.h5')
-
-model.load_weights('models/text_generator_400_0.2_400_0.2_400_0.2_100_1.h5')
+model.load_weights(
+    'models/text_generator_gigant_700_0.2_700_0.2_700_0.2_20.h5')
 
 
-# string_mapped = X_train[99]
-# full_string = [n_to_char[value] for value in string_mapped]
-# # generating characters
-# for i in range(400):
-#     x = np.reshape(string_mapped, (1, len(string_mapped), 1))
-#     x = x / float(len(characters))
+string_mapped = X_train[seq_length-1]
+full_string = [n_to_word[value] for value in string_mapped]
+# generating characters
+for i in range(seq_length):
+    x = np.reshape(string_mapped, (1, len(string_mapped), 1))
+    x = x / float(len(words))
 
-#     pred_index = np.argmax(model.predict(x, verbose=0))
-#     seq = [n_to_char[value] for value in string_mapped]
-#     full_string.append(n_to_char[pred_index])
+    pred_index = np.argmax(model.predict(x, verbose=0))
+    seq = [n_to_word[value] for value in string_mapped]
+    full_string.append(n_to_word[pred_index])
 
-#     string_mapped.append(pred_index)
-#     string_mapped = string_mapped[1:len(string_mapped)]
-#     # combining text
-# txt = ""
-# for char in full_string:
-#     txt = txt+char
-# txt
+    string_mapped.append(pred_index)
+    string_mapped = string_mapped[1:len(string_mapped)]
+    # combining text
+txt = ""
+for word in full_string:
+    txt = txt + ' ' + word
+print('txt:', txt)
 
 
 # print(words)
