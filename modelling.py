@@ -23,13 +23,6 @@ def modelling(X_modified, Y_modified, run_model_fit):
     model.add(Dropout(drop))
     model.add(Dense(Y_modified.shape[1], activation='softmax'))
 
-    # model.add(LSTM(400, input_shape=(
-    #     X_modified.shape[1], X_modified.shape[2]), return_sequences=True))
-    # model.add(Dropout(drop))
-    # model.add(LSTM(400))
-    # model.add(Dropout(drop))
-    # model.add(Dense(Y_modified.shape[1], activation='softmax'))
-
     model.compile(loss='categorical_crossentropy', optimizer='adam')
 
     filename = ''
