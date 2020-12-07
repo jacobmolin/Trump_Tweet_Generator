@@ -12,3 +12,9 @@ Iteration #2 (words, epochs: 1, seq_length: 10, 50 words)
   the the the the the the the the the the the the the the the the the the 
   the the the the the the the the the the the the the the the the the the the 
   the the the the the the the the the the
+
+
+#3 (seq_length: 20, epochs: 3, batch: 100, text_generator_gigant_700_0.2_700_0.2_700_0.2_20.h5)
+    you #maga #americafirst be on @foxandfriends at 7 02 a m enjoy #imwithyou 
+    will pay for the wall #americafirst #rncincle the the the the the the 
+    the the the the the the the the the the the the the the
