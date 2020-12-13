@@ -18,3 +18,14 @@ Iteration #2 (words, epochs: 1, seq_length: 10, 50 words)
     you #maga #americafirst be on @foxandfriends at 7 02 a m enjoy #imwithyou 
     will pay for the wall #americafirst #rncincle the the the the the the 
     the the the the the the the the the the the the the the
+
+#4 (Generated from chars instead of words, 10 epochs, batch size 60, seq_length 100)
+rd to it! not good news for jeb bush @donaldjtrumpjr & his wife @mrsvanessatrump attended the #snowfdare great again! i will be on @merica! #trump2016 thank you  #makeamericagreatagain
+
+(Epoque: 40)
+#5 (Seq: 50)
+do nothing democrats, it will never be enough! nobody fights hir oafyier wat h move than any prhsident of the united states will question and minwions teetren in new hampshire (and it now a wary barleu of the regone agein and then, keep america great! they are raking in this io u.s. history! gy was a dreat progress was mosk of minlions of voters! texas rep roger willing, aryant barole against the impeachment hoax. @sencapito was all in (a grea
+
+#6 (Seq: 100)
+do nothing democrats, it will never be enough! nobody fights harder for montana than @stevedaines. stare it a cres this’s geep the damoaign tr do business with tsumng of the american people we selected you the.... chana) was a gese wall, hon laky ye rooelem a blurt decate performance in the house and senate aemigves of the impeachment hoax. they are raking this not to do that in a courupt pooitician adam “shifty” schiff to totally pade, the what deao saamnd tiis. they want 
+them ae iopesen in

@@ -138,6 +138,7 @@ def cleanup_tweets(df):
 
         # Replace &amp
         text_list[i] = text_list[i].replace('&amp,', '&')
+        
 
         # Replace #
         text_list[i] = text_list[i].replace('#', ' #')
