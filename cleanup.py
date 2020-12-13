@@ -46,9 +46,9 @@ def cleanup_text(text):
 
     replacement = [',', '.', '!', '\"', ':',
                    '?', '(', ')', '’', '“', '‘', '~', '-', '—', '/', '”', '–']
-    ['\"', '“', '~', '-', '\\', '/', '”']
+    # ['\"', '“', '~', '-', '\\', '/', '”']
     for r in replacement:
-        text = text.replace(r, ' ')
+        text = text.replace(r, f' {r} ')
 
     # Remove multiple whitespaces
     # text = ' '.join(text.split())
@@ -138,7 +138,9 @@ def cleanup_tweets(df):
 
         # Replace &amp
         text_list[i] = text_list[i].replace('&amp,', '&')
-        
+
+        # Replace &amp
+        text_list[i] = text_list[i].replace('&amp;', '&')
 
         # Replace #
         text_list[i] = text_list[i].replace('#', ' #')

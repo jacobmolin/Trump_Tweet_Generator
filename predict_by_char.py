@@ -14,18 +14,18 @@ from keras.layers import LSTM
 from keras.utils import np_utils
 
 # ---- For running on GPU ----
-import tensorflow as tf
-config = tf.compat.v1.ConfigProto(gpu_options=tf.compat.v1.GPUOptions(
-    per_process_gpu_memory_fraction=0.8)
-    # device_count = {'GPU': 1}
-)
-config.gpu_options.allow_growth = True
-session = tf.compat.v1.Session(config=config)
-tf.compat.v1.keras.backend.set_session(session)
 # import tensorflow as tf
-# GPU_OPTIONS = tf.GPUOptions(allow_growth=True)
-# CONFIG = tf.ConfigProto(gpu_options=GPU_OPTIONS)
-# sess = tf.Session(config = CONFIG)
+# config = tf.compat.v1.ConfigProto(gpu_options=tf.compat.v1.GPUOptions(
+#     per_process_gpu_memory_fraction=0.8)
+#     # device_count = {'GPU': 1}
+# )
+# config.gpu_options.allow_growth = True
+# session = tf.compat.v1.Session(config=config)
+# tf.compat.v1.keras.backend.set_session(session)
+# # import tensorflow as tf
+# # GPU_OPTIONS = tf.GPUOptions(allow_growth=True)
+# # CONFIG = tf.ConfigProto(gpu_options=GPU_OPTIONS)
+# # sess = tf.Session(config = CONFIG)
 
 # ----------------------------
 
@@ -34,7 +34,7 @@ data = pd.read_csv('data/tweets_11-06-2020.csv')
 
 user_year = '2020'
 df = data[(data["date"] >= user_year + '-03-01 00:00:00') &
-          (data["date"] <= user_year + '-04-31 23:59:59')]
+          (data["date"] <= user_year + '-03-31 23:59:59')]
 
 print('length df:', len(df))
 
@@ -43,6 +43,9 @@ print('length tweet_list:', len(tweet_list))
 
 text = cleanup_for_char(' '.join(tweet_list))
 # print(text)
+
+# File_object = open(r"File_Name", "Access_Mode")
+# File_object.write(str1)
 
 # Words
 words = text.split()
@@ -64,8 +67,7 @@ X_train = []
 Y_target = []
 length = len(text)
 print('length text:', length)
-seq_length = 240
-
+seq_length = 150
 
 
 for i in range(0, length-seq_length, 1):
@@ -81,20 +83,26 @@ X_modified = np.reshape(X_train, (len(X_train), seq_length, 1))
 X_modified = X_modified / float(len(characters))
 Y_modified = np_utils.to_categorical(Y_target)
 
-run_model_fit = True
+run_model_fit = False
 
 [model, filename] = modelling(X_modified, Y_modified, run_model_fit)
 
 if filename != '':
     model.load_weights(filename)
-else:
-    model.load_weights('models/text_generator_gigant_700_0.2_700_0.2_700_0.2_201.h5')
+# else:
+# model.load_weights(
+# 'models/text_generator_gigant_700_0.2_700_0.2_700_0.2_201.h5')
 
-string_mapped = X_train[99]
+
+string_mapped = [0]  # X_train[99]
+print(string_mapped)
+
 full_string = [n_to_char[value] for value in string_mapped]
+# full_string = ['i']
+print(full_string)
 
 # generating characters
-for i in range(seq_length):
+for i in range(140):
     x = np.reshape(string_mapped, (1, len(string_mapped), 1))
     x = x / float(len(characters))
 
@@ -109,5 +117,4 @@ for i in range(seq_length):
 txt = ""
 for char in full_string:
     txt = txt + char
-txt = txt.replace('&amp;', '&')
 print('txt:', txt)
