@@ -1,4 +1,4 @@
-# Trump Tweets Summarizer
+# Predicting Trump Tweets
 
 ## Group project in the course TNM108 - Machine Learning for Social Media
 
