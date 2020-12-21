@@ -4,6 +4,7 @@ from cleanup import cleanup_text
 from cleanup import cleanup_tweets
 from cleanup import cleanup_for_char
 from modelling import modelling
+from random import randint
 import numpy as np
 import pandas as pd
 from keras.utils import np_utils
@@ -82,6 +83,8 @@ seq_length = 5
 
 for i in range(0, length-seq_length, 1):
     sequence = words_all[i:i + seq_length]
+    # if i % 10 == 0:
+    # print('sequence =', sequence)
     label = words_all[i + seq_length]
     X_train.append([word_to_n[word] for word in sequence])
     Y_target.append(word_to_n[label])
@@ -103,12 +106,12 @@ X_modified = np.reshape(X_train, (len(X_train), seq_length, 1))
 X_modified = X_modified / float(len(words))
 Y_modified = np_utils.to_categorical(Y_target)
 
-run_model_fit = True
+run_model_fit = False
 
 [model, filename] = modelling(X_modified, Y_modified, run_model_fit)
 
 if filename != '':
-    model.load_weights(filename)
+    model.load_weights('text_generator_400_0.2_400_0.2_e100_bs5046.h5')
 # else:
 #     model.load_weights(
 #     'models/text_generator_gigant_700_0.2_700_0.2_700_0.2_201.h5')
@@ -119,14 +122,15 @@ print(string_mapped)
 
 full_string = [n_to_word[value] for value in string_mapped]
 # full_string = ['i']
-print(full_string)
+# print(full_string)
 
 # generating words
-for i in range(50):
+for i in range(40):
     x = np.reshape(string_mapped, (1, len(string_mapped), 1))
     x = x / float(len(words))
 
     pred_index = np.argmax(model.predict(x, verbose=0))
+    print('pred_index:', pred_index)
     seq = [n_to_word[value] for value in string_mapped]
     full_string.append(n_to_word[pred_index])
 
@@ -135,6 +139,9 @@ for i in range(50):
 
 # combining text
 txt = ""
+
+# print(full_string)
+
 for word in full_string:
     txt = txt + " " + word
 print('txt:', txt)
